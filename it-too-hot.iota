@@ -7,12 +7,12 @@ rule "It's too hot"
 	
 	temperatureSensor1.temperature [ .~>currentTemperature ];
 
-	  currentTemperature <= temperature;
-	  send ( ”temperature too high” + currentTemperature ), 
-          switch1.switch := on;
+	  currentTemperature <= temperatureMeasurement;
+	  //send ( ”temperature too high” + currentTemperature ), 
+          switch1.switch := on
 
 	| currentTemperature > temperature;
-	  send ( ”temperature too low” + currentTemperature ), 
-	  switch1.switch := off;
+	  //send ( ”temperature too low” + currentTemperature ), 
+	  switch1.switch := off
 
 end
