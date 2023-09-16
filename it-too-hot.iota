@@ -1,0 +1,18 @@
+rule "It's too hot"
+
+	device temperatureSensor1 : temperatureMeasurement;
+	input temperature : number;
+	device switch1 : switch;
+	output send : string;
+	
+	temperatureSensor1.temperature [ .~>currentTemperature ];
+
+	  currentTemperature <= temperatureMeasurement;
+	  //send ( ”temperature too high” ), 
+          switch1.switch := on
+
+	| currentTemperature > temperature;
+	  //send ( ”temperature too low” ), 
+	  switch1.switch := off
+
+end
