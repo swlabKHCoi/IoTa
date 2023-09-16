@@ -1,0 +1,12 @@
+rule "Flood Alert!"
+
+    device alarm : capability.waterSensor;
+    output recipients : contact;
+    output phone : phone;
+
+    Time cron "0 * * * * * *";
+
+        alarm.wet = "wet";
+        send(alarm + " is wet, texting phone number");
+
+end
