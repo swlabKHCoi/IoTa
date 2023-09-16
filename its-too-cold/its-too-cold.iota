@@ -8,7 +8,7 @@ rule "its-too-cold.groovy"
     temperatureSensor1.temperature [ .~>currentTemperature ];
 
         currentTemperature >= tooCold;
-        //send ( "Sensed temperature level: " + currentTemperature ),
+        send ( "Sensed temperature level: " + currentTemperature ),
         switch1.switch := on
 
 end
