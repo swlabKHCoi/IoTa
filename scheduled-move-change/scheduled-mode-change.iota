@@ -2,6 +2,7 @@ rule "scheduled-mode-change.groovy"
 
 
     input newMode : mode;
+    input time : time;
     output send : string;
 
     location.mode != newMode;
