@@ -7,6 +7,7 @@ output send : string;
 
 newMode[ .~> newMode ];
 
-    send ( "Sensed mode change : " + newMode )
+    send ( "Sensed mode change : ")
+    
 
 end
