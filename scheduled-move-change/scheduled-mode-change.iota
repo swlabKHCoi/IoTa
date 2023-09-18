@@ -1,13 +1,11 @@
-rule "scheduled-mode-change.groovy”
+rule "scheduled-mode-change.groovy"
 
 
-input newMode : mode;
-output send : string;
+    input newMode : mode;
+    output send : string;
 
+    location.mode != newMode;
 
-newMode[ .~> newMode ];
-
-    send ( "Sensed mode change : ")
-    
-
+        send ( "Sensed mode : " + newMode )
+        
 end
