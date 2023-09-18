@@ -10,3 +10,25 @@ rule "scheduled-mode-change.groovy"
         send ( "Sensed mode : " + newMode )
         
 end
+
+
+// def send(msg) {
+
+    // if (location.contactBookEnabled) {
+        // log.debug("sending notifications to: ${recipients?.size()}")
+        // sendNotificationToContacts(msg, recipients)
+    // }
+    // else {
+        // if (sendPushMessage == "Yes") {
+            // log.debug("sending push message")
+            // sendPush(msg)
+        // }
+
+        // if (phoneNumber) {
+            // log.debug("sending text message")
+            // sendSms(phoneNumber, msg)
+        // }
+    // }
+
+	// log.debug msg
+// }
