@@ -3,8 +3,8 @@ rule "Flood Alert!"
     device alarm : capability.waterSensor;
     output send : string;
 
-    wet_time[.~>];
-    wet_timer == 60 && alarm.wet == "wet";
+    alarm.water[.~>];
+    alarm.water == wet;
     send(alarm + " is wet, texting phone number");  
 
 end
