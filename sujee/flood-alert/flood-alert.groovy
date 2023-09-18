@@ -25,10 +25,11 @@ definition(
 )
 
 preferences {
+	// waterSensor not existing으로 처리됨
 	section("When there's water detected...") {
 		input "alarm", "capability.waterSensor", title: "Where?"
 	}
-	section("Send a notification to...") {
+	section("Send a notification to...") {	// 해당 형식 어떻게 Parsing 해야하는지 불분명
 		input("recipients", "contact", title: "Recipients", description: "Send notifications to") {
 			input "phone", "phone", title: "Phone number?", required: false
 		}
@@ -47,12 +48,14 @@ def updated() {
 def waterWetHandler(evt) {
 	def deltaSeconds = 60
 
-	def timeAgo = new Date(now() - (1000 * deltaSeconds))
+	// 60초마다 실행하는 것의 문제 (카네기 멜론 논문 참고)
+	def timeAgo = new Date(now() - (1000 * deltaSeconds))	 // 1초동안 이벤트 탐지 불가, 결국 해당 시점에 젖어 있는지만 확인
 	def recentEvents = alarm.eventsSince(timeAgo)
 	log.debug "Found ${recentEvents?.size() ?: 0} events in the last $deltaSeconds seconds" // 60초마다 실행하는 것으로 이해
 
 	def alreadySentSms = recentEvents.count { it.value && it.value == "wet" } > 1
 
+	// alreadySentSms 구현 불가
 	if (alreadySentSms) {
 		log.debug "SMS already sent within the last $deltaSeconds seconds"
 	} else {
