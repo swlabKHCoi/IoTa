@@ -1,4 +1,5 @@
 rule "mail arrived.groovy"
+// alert when mail arrived
 
 	device accelerationSensor : accelerationSensor;
 	output send : string;
