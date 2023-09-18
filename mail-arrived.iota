@@ -1,16 +1,18 @@
-rule "mail arrived.groovy"
+rules "mail arrived.groovy"
 
 	device accelerationSensor : accelerationSensor;
-	input active : bool;
-	input inactive : bool;
 	output send : string;
 
-	accelerationSensor.acceleration [ .~>currentPushNotification ];
-	
-	active == true;
-	send ( "arrived mail" )
+	rule "mail when arrived"
+		accelerationSensor.acceleration [ .~>active ];
+		true;
+		send ( "arrived mail" )
+	end
 
-      | inactive == false;
-	send ( "not arrived mail" )
+	rule "mail not arrived"
+		accelerationSensor.acceleration [ .~>inactive ];
+		true;
+		send ( "not arrived mail" )
+	end
 
 end
