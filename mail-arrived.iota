@@ -8,9 +8,9 @@ rule "mail arrived.groovy"
 	accelerationSensor.acceleration [ .~>currentPushNotification ];
 	
 	active == true;
-	send ( "arrived mail" );
+	send ( "arrived mail" )
 
       | inactive == false;
-	send ( "not arrived mail" );
+	send ( "not arrived mail" )
 
 end
