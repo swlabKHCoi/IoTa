@@ -1,10 +1,21 @@
 rule "Flood Alert!"
 
     device alarm : capability.waterSensor;
-    output phone : phone;
+    output send : string;
 
-    Time cron "0 * * * * * *";
-    alarm.wet = "wet";     
+    alarm.water[.~>];
+    alarm.water == wet;
     send(alarm + " is wet, texting phone number");  
 
 end
+
+//  def recentEvents = alarm.eventsSince(timeAgo)
+//	def alreadySentSms = recentEvents.count { it.value && it.value == "wet" } > 1
+
+// if (location.contactBookEnabled) {sendNotificationToContacts(msg, recipients)}
+// else {
+//			sendPush(msg)
+//			if (phone) {
+//				sendSms(phone, msg)
+//			}
+//		}
