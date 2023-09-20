@@ -1,0 +1,14 @@
+rule "its-too-cold.groovy"
+
+    device temperatureSensor1 : temperatureMeasurement;
+    input tooCold : number;
+    device switch1 : switch;
+    output send : string;
+
+    temperatureSensor1.temperature [ .~>currentTemperature ];
+
+        currentTemperature >= tooCold;
+        send ( "Sensed temperature level: " + currentTemperature ),
+        switch1.switch := on
+
+end

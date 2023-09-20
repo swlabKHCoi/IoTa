@@ -12,7 +12,7 @@ rule "It's too hot"
 	  //send ( ”temperature too high” ), 
           switch1.switch := on
 
-	| currentTemperature <= temperatureLow;
+	| currentTemperature < temperatureLow;
 	  //send ( ”temperature too low” ), 
 	  switch1.switch := off
 
