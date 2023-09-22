@@ -1,0 +1,8 @@
+rule "The Gun Case Moved"
+
+    device accelerationSensor = capability.accelerationSensor;
+    output send : string;
+
+    accelerationSensor.active[.~>active];
+    send("Gun cases has moved");
+end
