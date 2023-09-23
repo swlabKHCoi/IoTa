@@ -1,0 +1,18 @@
+rule "big-turn-on"
+
+    //device들을 각각 선택하게 하는 것이 아닌 사용자가 string형식으로
+    //입력 했을때 작동하면 좋을 것 같다.
+
+    device switch : switch;
+    input television : bool;
+    input airconditional : bool;
+
+    switch.switch [ .~> on ];
+
+    television == true;
+    switch := on
+
+  | airconditional == true;
+    switch := on
+
+end

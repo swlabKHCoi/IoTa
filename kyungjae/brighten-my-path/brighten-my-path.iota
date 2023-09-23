@@ -1,0 +1,12 @@
+rule "brighten-my-path"
+
+    device motionSensor : motion;
+    device switch : switch;
+    input light : bool;
+
+    motionSensor.motion [ .~> active ];
+    light == true;
+    switch := on
+
+end
+
