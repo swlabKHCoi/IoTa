@@ -1,0 +1,14 @@
+rlue "when-its-going-to-rain"
+
+    input zipcode : text;
+    device sensors : contactSensor;
+    output send : string;
+
+    response[ .~> ];
+    result == true;
+    send("A storm is a coming")
+
+
+
+
+end 
