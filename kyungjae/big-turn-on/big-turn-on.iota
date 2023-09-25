@@ -3,16 +3,16 @@ rule "big-turn-on"
     //device들을 각각 선택하게 하는 것이 아닌 사용자가 string형식으로
     //입력 했을때 작동하면 좋을 것 같다.
 
-    device switch : switch;
+    device switches : switch;
     input television : bool;
     input airconditional : bool;
 
-    switch.switch [ .~> on ];
+    switches.switch [ .~> on ];
 
     television == true;
-    switch := on
+    switches := on
 
   | airconditional == true;
-    switch := on
+    switches := on
 
 end
