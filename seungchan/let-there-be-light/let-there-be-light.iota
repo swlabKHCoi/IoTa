@@ -1,0 +1,13 @@
+rule "let-there-be-light.groovy"
+//"Turn your lights on when a SmartSense Multi is opened and turn them off when it is closed."
+
+	device contact1 : contactSensor;
+	device switch1 : switch;
+
+	contact1.contact [ .~> ];
+	contact1.contact == open;
+	switch1.switch := on
+
+	| contact1.contact == closed;
+	switch1.switch := off
+end
