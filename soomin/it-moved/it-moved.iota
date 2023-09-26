@@ -1,0 +1,12 @@
+rule "it-moved.groovy"
+
+    device accelerationSensor : acceleration ; 
+    output send : string ;
+
+    accelerationSensor.acceleration[.~>active];
+    true;
+    send ( "accelerationSensor moved" )
+
+
+end 
+

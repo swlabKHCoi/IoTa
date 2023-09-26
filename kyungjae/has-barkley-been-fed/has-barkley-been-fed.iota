@@ -1,0 +1,26 @@
+rule "has-barkley-been-fed"
+
+    device contactSensor : contact;
+    input phone1 : phone;
+    input time1 : time;
+    output send : string;
+
+      rule "feeder open"
+        
+        contactSensor.contact [ .~>open ];
+	time1 = true;
+	contactSensor.contact := open
+
+      end
+
+      rule "feeder close"
+
+        contactSensor.contact [ .~>closed ];
+	time1 = true;
+	contactSensor.contact := open,
+	send ("feeder is closed")
+
+      end
+
+end
+	

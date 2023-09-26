@@ -1,0 +1,12 @@
+rule "darken-behind-me.groovy"
+
+    device motion1 : motion;
+    device switch1 : switch;
+
+    motion1.motion[ .~> inactive];
+    true;
+    // event 뒤에 조건으로 true 작성해야 실행됨, 이 파일에선 한글 주석 처리 안됨
+    switch1.switch := off
+
+
+end
