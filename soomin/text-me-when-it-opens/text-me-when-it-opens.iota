@@ -5,10 +5,6 @@ rule "text-me-when-it-opens.groovy"
     output send : string;
 
     // send 함수가 정의되어있지 않아도 정의해도 되는지 
-    // it-moved 파일에서는 send 함수가 정의되어있지 않아도 
-    // output으로 작성했을 때 오류가 뜨지 않았음 
-    // 그러나 지금 앞에서 정의하게 되면 오류가 뜸
-    // 이번 파일과 it-moved파일의 차이가 ? 
 
     contact1.contact [.~>open] ;
         true;

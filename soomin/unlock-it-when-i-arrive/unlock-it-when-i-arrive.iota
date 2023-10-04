@@ -8,8 +8,9 @@ rule "unlock-it-when-i-arrive.groovy"
     lock1 := unlock
 
     //lock1.count{it.currentLock == "unlocked"} != lock1.size()
-    // 현재 lock이 열렸는지를 count를 세서 size랑 같은지
-    // 비교하는 이유가 다 열려있는지 않는 경우를 말하는 건가?
-    // 그렇다면 잠겨있는걸로 단순하게 조건을 작성해도 괜찮은가?
+    // 현재 lock이 열렸는지를 count를 세서 size랑 같지 않은지
+    // 보는게 다 열려있는지 않는 경우를 확인하려는 건가?
+    // 그렇다면 currentLock =="locked"처럼 잠겨있는걸로
+    // 단순하게 조건을 작성해도 괜찮은가?
 
 end
