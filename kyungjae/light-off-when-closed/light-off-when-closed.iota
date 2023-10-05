@@ -1,0 +1,11 @@
+rule "light-off-when-closed"
+
+    device contactSensor : contact;
+    input switch1 : switch;
+
+    contact1.contact [ .~>close ];
+    true;
+    switch1.switch := off
+
+end
+
