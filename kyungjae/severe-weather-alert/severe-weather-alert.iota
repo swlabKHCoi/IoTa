@@ -1,3 +1,16 @@
 rule "severe-weather-alert"
 
+    device startTimer : timer;
+    device stopTimer : timer;
+    input hourmin : int;
+
+    output send : string;
+
+    startTimer.timer [ .~> start ];
+    hourmin == 0000;
+    send("good weather")
+
+  | hourmin == 1200;
+    send(bad weather")
+
 end
