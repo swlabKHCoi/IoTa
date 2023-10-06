@@ -1,0 +1,10 @@
+rule "turn-it-on-when-it-opens.groovy"
+
+    device contact1 : contactSensor;
+    device switches : switch;
+
+    contact1.contact [. ~> open];
+    true;
+    switches := on
+
+end

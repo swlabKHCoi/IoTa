@@ -1,0 +1,34 @@
+rule "Habit Helper"
+    input message1:text;
+    input time1:time;
+    output recipients:contact;
+    output phone1:phone;
+    output send:string;
+
+    // event block missing
+    time1.hour[. ~> ];
+    true;
+    send(message1)
+
+end
+
+//def installed()
+//{
+//	schedule(time1, "scheduleCheck")
+//}
+
+//def updated()
+//{
+//	unschedule()
+//	schedule(time1, "scheduleCheck")
+//}
+
+// if (location.contactBookEnabled) {
+//      log.debug "Texting reminder to contacts:${recipients?.size()}"
+//      sendNotificationToContacts(message, recipients)
+// }
+// else {
+//   log.debug "Texting reminder"
+//   sendSms(phone1, message)
+// }
+// def message = message1 ?: "SmartThings - Habit Helper Reminder!"

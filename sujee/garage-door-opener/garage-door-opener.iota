@@ -1,0 +1,27 @@
+rule "Garage Door Opener"
+    output switch:capability.switch;
+
+    // 터치를 구현할 방도가 없음
+
+end
+
+// def installed() {
+// 	subscribe(app, appTouchHandler)
+// 	subscribeToCommand(switch1, "on", onCommand)
+// }
+
+// def updated() {
+// 	unsubscribe()
+// 	subscribe(app, appTouchHandler)
+// 	subscribeToCommand(switch1, "on", onCommand)
+// }
+
+// def appTouch(evt) {
+// 	log.debug "appTouch: $evt.value, $evt"
+// 	switch1?.on()
+// }
+
+// def onCommand(evt) {
+// 	log.debug "onCommand: $evt.value, $evt"
+// 	switch1?.off(delay: 3000)
+// }
