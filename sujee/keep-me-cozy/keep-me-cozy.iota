@@ -1,0 +1,36 @@
+rule "Keep Me Cozy"
+    // capability not existing in official document
+    device thermostat : capability.termostat;
+    input heatingSetPoint : number;
+    input coolingSetPoint : number;
+
+    thermostat.temperature[.~>.];
+    true;
+    // input을 어떻게 받지?
+    thermostat.poll();
+end
+
+
+// subscribe(location, changedLocationMode)
+// subscribe(app, appTouch)
+// thermostat.poll()
+
+// def changedLocationMode(evt)
+// {
+// 	log.debug "changedLocationMode: $evt, $settings"
+
+// 	thermostat.setHeatingSetpoint(heatingSetpoint)
+// 	thermostat.setCoolingSetpoint(coolingSetpoint)
+// 	thermostat.poll()
+// }
+
+// def installed()
+// {
+// 	subscribe(thermostat, "heatingSetpoint", heatingSetpointHandler)
+// 	subscribe(thermostat, "coolingSetpoint", coolingSetpointHandler)
+// 	subscribe(thermostat, "temperature", temperatureHandler)
+// 	subscribe(location, changedLocationMode)
+// 	subscribe(app, appTouch)
+// }
+
+// 코드 의미 파악 실패
