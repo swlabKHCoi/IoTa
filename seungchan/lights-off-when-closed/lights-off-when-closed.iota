@@ -5,6 +5,6 @@ rule "lights-off-when-closed.groovy"
 	device switch1 : switch;
 
 	contact1.contact [ .~> ];
-	contact1.contact == closed
+	contact1.contact == closed;
 	switch1.switch := off
 end
