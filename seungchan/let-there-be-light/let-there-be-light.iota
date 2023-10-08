@@ -8,6 +8,6 @@ rule "let-there-be-light.groovy"
 	contact1.contact == open;
 	switch1.switch := on
 
-	| contact1.contact == closed;
+       |contact1.contact == closed;
 	switch1.switch := off
 end
