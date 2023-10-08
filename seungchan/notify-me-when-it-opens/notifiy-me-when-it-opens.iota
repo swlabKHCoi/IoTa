@@ -4,6 +4,6 @@ rule "notifiy-me-when-it-opens.groovy"
 	output send : string;
 
 	contact1.contact [ .~> ];
-	contact1.contact == open
+	contact1.contact == open;
 	send ("Your " + contact1 + " was opened")
 end
