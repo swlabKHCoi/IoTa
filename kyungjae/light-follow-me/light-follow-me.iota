@@ -1,0 +1,24 @@
+rule "light-follow-me"
+
+    device motionSensor : motion;
+    device switch : switch;
+
+    input minutes1 : number;
+
+    rule "motionSensor active"
+
+        motionSensor.motion [ .~> active ];
+	true;
+	switch := on
+
+    end
+
+    rule "motionSensor inactive"
+
+        motionSensor.motion [ .~> inacitve];
+	now() <= minutes1;
+	switch := off
+
+    end
+
+end

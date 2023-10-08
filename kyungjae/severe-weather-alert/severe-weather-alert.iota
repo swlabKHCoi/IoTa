@@ -1,3 +1,19 @@
 rule "severe-weather-alert"
 
+    device startTimer : timer;
+    device stopTimer : timer;
+    //사용자로부터 문자를 받을 시간을 정한다.
+    input hourmin : int;
+
+    output send : string;
+
+    //timer를 실행해놓으면 
+    startTimer.timer [ .~> start ];
+    //0000시가 되었을 때 날씨 정보를 보내준다.
+    hourmin == 0000;
+    send("good weather")
+
+  | hourmin == 1200;
+    send(bad weather")
+
 end
