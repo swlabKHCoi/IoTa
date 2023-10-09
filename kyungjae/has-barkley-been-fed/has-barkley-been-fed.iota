@@ -9,7 +9,7 @@ rule "has-barkley-been-fed"
         
         contactSensor.contact [ .~>open ];
 	time1 = true;
-	contactSensor.contact := open
+	contactSensor := open
 
       end
 
@@ -17,7 +17,7 @@ rule "has-barkley-been-fed"
 
         contactSensor.contact [ .~>closed ];
 	time1 = true;
-	contactSensor.contact := open,
+	contactSensor := open,
 	send ("feeder is closed")
 
       end
