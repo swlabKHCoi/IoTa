@@ -4,9 +4,9 @@ rule "garage-door-opener.groovy"
 	device garageDoor_switch : switch;
 
 	garageDoor_switch.switch [ .~> ];
-	garageDoor_switch.switch == on;
-	garageDoor.door := open
+	 garageDoor_switch.switch == on;
+	 garageDoor.door := open
 
-       |garageDoor_switch.switch == off;
-	grageDoor.door := close
+       | garageDoor_switch.switch == off;
+	 grageDoor.door := close
 end
