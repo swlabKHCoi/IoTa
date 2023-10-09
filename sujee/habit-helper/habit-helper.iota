@@ -1,14 +1,28 @@
 rule "Habit Helper"
     input message1:text;
     input time1:time;
+    input contactEnabled : Boolean;
     output recipients:contact;
     output phone1:phone;
-    output send:string;
+    output sendSms: (String, String);
+    output sendNotificationToContacts : (String, array of String);
+    device clock : capability.clock;
 
     // event block missing
     time1.hour[. ~> ];
     true;
     send(message1)
+
+    clock.time [. ~> currentTime];
+
+    time1 == currentTime && contactEnabled;
+    sendNotificationToContacts(message, recipients);
+
+    |
+
+    time1 == currentTime && !contactEnabled;
+    sendSms(phone1, message);
+    
 
 end
 
