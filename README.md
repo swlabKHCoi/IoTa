@@ -8,7 +8,7 @@
 | Big Turn OFF                                  | 0          | 2         | 40   |  O   |
 | Big Turn ON                                   | 0          | 2         | 40   |  O   |
 | Brighten My Path                              | 0          | 1         | 34   |  O   |
-| Carpool Notifier                              | 4          | 0         | 85   |      |
+| Carpool Notifier                              | 4          | 0         | 85   |  O   |
 | Darken Behind Me                              | 0          | 1         | 34   |  O   |
 | Energy Saver                                  | 1          | 0         | 35   |  O   |
 | Flood Alert!                                  | 1          | 0         | 41   |  O   |
