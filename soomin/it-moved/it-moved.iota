@@ -4,7 +4,8 @@ rule "it-moved.groovy"
     output send : string ;
 
     accelerationSensor.acceleration[.~>active];
-    true;
+    true; 
+    // or alreadySentSms != true
     send ( "accelerationSensor moved" )
 
 
