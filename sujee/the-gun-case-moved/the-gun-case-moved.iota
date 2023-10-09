@@ -4,5 +4,6 @@ rule "The Gun Case Moved"
     output send : string;
 
     accelerationSensor.active[.~>active];
+    true;
     send("Gun cases has moved");
 end

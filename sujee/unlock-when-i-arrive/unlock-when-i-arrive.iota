@@ -5,7 +5,8 @@ rule "Unlock It When I Arrive"
     output send : string;
 
     lock1.lock [.~>unlocked];
-    send("Unlocked door due to arrival");
+    true;
+    send("Unlocked door due to arrival") | 
     lock1.unlock();
 end
 

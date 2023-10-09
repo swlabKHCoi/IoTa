@@ -4,9 +4,15 @@ rule "Text Me When There's Motion and I'm Not Here"
     input presence1 : capability.presenceSensor;
     output send : string;
 
-    presence1.presence[.~>not present];
-    send(motion1 + "has moved while you were out");
+    rule "When Not Present"
+        presence1.presence[.~>not present];
+        true;
+        send(motion1 + "has moved while you were out");
+    end
     
-    presence1.presence[.~>present];
-    send("Motion detected, but presence sensor indicates you are present");
+    rule "When Present"
+        presence1.presence[.~>present];
+        true;
+        send("Motion detected, but presence sensor indicates you are present");
+    end
 end
