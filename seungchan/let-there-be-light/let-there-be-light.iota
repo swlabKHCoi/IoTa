@@ -5,9 +5,10 @@ rule "let-there-be-light.groovy"
 	device switch1 : switch;
 
 	contact1.contact [ .~> ];
-	contact1.contact == open;
-	switch1.switch := on
 
-	| contact1.contact == closed;
-	switch1.switch := off
+	 contact1.contact == open;
+	 switch1.switch := on
+
+       | contact1.contact == closed;
+	 switch1.switch := off
 end
