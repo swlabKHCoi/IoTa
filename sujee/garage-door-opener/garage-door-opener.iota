@@ -1,8 +1,22 @@
-rule "Garage Door Opener"
-    output switch:capability.switch;
+rules "Garage Door Opener"
+    device door_switch:capability.switch;
+    device app : capability.touch;
+    timer door_timer;
 
-    // 터치를 구현할 방도가 없음
+    rule "When app touched"
+        app.touch [. ~> ];
+        true;
+        start door_timer at 0;
+    end
 
+    rule "When timer reach to 3 second"
+        door_timer [. ~> 3];
+        true;
+        door_switch.switch := off,
+        stop door_timer;
+    end
+
+    
 end
 
 // def installed() {
