@@ -5,7 +5,7 @@ rlue "when-its-going-to-rain"
     output send : string;
 
     response[ .~> ];
-    result == true;
+    result != false;
     send("A storm is a coming")
 
 
