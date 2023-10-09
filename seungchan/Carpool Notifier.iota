@@ -12,7 +12,7 @@ rule "Carpool Notifier"
 	start timer at 0
 	
 	timer [.~>0];
-	timer = 5;
+	timer == 5;
 	message ("Your ride is here!"), stop timer
 
 end
