@@ -1,13 +1,24 @@
 rule "Keep Me Cozy"
     // capability not existing in official document
-    device thermostat : capability.termostat;
+    device thermostat : capability.termostatCoolingSetpoint, capability.thermostatHeatingSetpoint;
     input heatingSetPoint : number;
     input coolingSetPoint : number;
+    output log_debugger : number;
+    device location : locationMode;
 
-    thermostat.temperature[.~>.];
+    thermostat.coolingSetpoint[.~>coolingSetpoint];
     true;
-    // input을 어떻게 받지?
-    thermostat.poll();
+    log_debug("coolingSetpoint: " + coolingSetpoint);
+
+    thermostat.heatingSetpoint[.~>];
+    true;
+
+    location.mode [. ~> locationMode];
+    true;
+    log_debug("changeedLocationMode: " + locationMode),
+    thermostat.setHeatingSetpoint := heatingSetPoint,
+    thermostat.setCoolingSetpoint := coolingSetPoint;
+    // poll();
 end
 
 
