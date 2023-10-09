@@ -8,5 +8,25 @@ rlue "when-its-going-to-rain"
     result != false;
     send("A storm is a coming and the following things are open:"+ open.join(', '))
 
+//private isStormy(json) {
+//	def STORMY = ['rain', 'snow', 'showers', 'sprinkles', 'precipitation']
+//
+//	def forecast = json?.forecast?.txt_forecast?.forecastday?.first()
+//	if (forecast) {
+//		def text = forecast?.fcttext?.toLowerCase()
+//		if (text) {
+//			def result = false
+//			for (int i = 0; i < STORMY.size() && !result; i++) {
+//				result = text.contains(STORMY[i])
+//			}
+//			return result
+//		} else {
+//			return false
+//		}
+//	} else {
+//		log.warn "Did not get a forecast: $json"
+//		return false
+//	}
+//}
 
 end 
