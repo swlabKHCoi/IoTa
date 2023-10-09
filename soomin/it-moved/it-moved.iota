@@ -1,6 +1,6 @@
 rule "it-moved.groovy"
 
-    device accelerationSensor : acceleration ; 
+    device accelerationSensor : accelerationSensor ; 
     output send : string ;
 
     accelerationSensor.acceleration[.~>active];
