@@ -2,8 +2,8 @@ rule "Carpool Notifier"
 //"Send notifications to your carpooling buddies when you arrive to pick them up. If the person you are picking up is home, and has been for 5 minutes or more, they will get a notification when you arrive."
 	device driver : presenceSensor;
 	device rider : presenceSensor;
-	input phone1 : phone;
-	output message : string;
+	output phone1 : phone;
+	output message : (String, String);
 	timer timer1;
 //메세지 보내는 메소드 구현?
 
@@ -13,6 +13,6 @@ rule "Carpool Notifier"
 	
 	timer1 [.~>];
 	timer1 == 5;
-	message ("Your ride is here!"), stop timer1
+	message (phone1, "Your ride is here!"), stop timer1
 
 end
