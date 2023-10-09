@@ -11,7 +11,7 @@ rule "Carpool Notifier"
 	driver.presence == present;	
 	start timer1 at 0
 	
-	timer1 [.~>0];
+	timer1 [.~>];
 	timer1 == 5;
 	message ("Your ride is here!"), stop timer1
 
