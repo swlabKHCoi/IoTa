@@ -4,15 +4,15 @@ rule "Carpool Notifier"
 	device rider : presenceSensor;
 	input phone1 : phone;
 	output message : string;
-
+	timer timer1;
 //메세지 보내는 메소드 구현?
 
 	driver.presence [not present ~>];
 	driver.presence == present;	
-	start timer at 0
+	start timer1 at 0
 	
-	timer [.~>0];
-	timer == 5;
-	message ("Your ride is here!"), stop timer
+	timer1 [.~>0];
+	timer1 == 5;
+	message ("Your ride is here!"), stop timer1
 
 end
