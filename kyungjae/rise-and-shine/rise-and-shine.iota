@@ -1,0 +1,12 @@
+rules "rise-and-shine"
+
+    device motinoSensors : motion;
+    device switches : switch;
+    input timeOfDay : time;
+    input endTime : time;
+    input newMode : mode;
+    input recipients : contact;
+    input sendPushMessage : enum;
+    input phoneNumber : phone;
+
+

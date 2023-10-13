@@ -1,0 +1,30 @@
+rules "once-a-day"
+
+    device switches : switch;
+    input startTime : time;
+    input stopTime : time;
+    timer switch_timer;
+
+
+    rule "start timer"
+        
+	timer [ .~> ];
+	true;
+	start switch_timer at 0
+    end
+
+    rule "switch on when start time"
+
+        switches.switch [ .~> on ];
+        switch_timer == startTime;
+	switch := on
+    end
+
+    rule "switch off when stop time"
+
+        switches.switch [ .~> off ];
+	switch_timer == stopTime;
+	switch := off
+    end
+
+end
