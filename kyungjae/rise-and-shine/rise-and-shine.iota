@@ -2,11 +2,55 @@ rules "rise-and-shine"
 
     device motinoSensors : motion;
     device switches : switch;
-    input timeOfDay : time;
-    input endTime : time;
     input newMode : mode;
     input recipients : contact;
     input sendPushMessage : enum;
     input phoneNumber : phone;
+    timer start_time;
+    timer end_time;
+    timer flowing_time;
+
+    rule "start timer"
+        
+	motionSensors.motion [ .~>active ];
+	start_time == null;
+	start flowing_time at 0
+
+    end
+
+    rule "set timer"
+        
+	flowing_time [ .~> ];
+	true;
+	start_time = ??,
+	end_time = ??
+
+    end
+
+    rule "increment the timer"
+
+        flowing_time [ .~> ];
+	flowing_time < end_time;
+	tick flowing_time
+
+    end
+
+    rule "start a morning routine"
+
+        flowing_time [ .~> ];
+	flowing_time >= start_time && flowing_time <= end_time && location.mode != newMode;
+	send("Good morning! SmartThings changed the mode to '$newMode'"),
+	switches.switch := on,
+	stop flowing_time
+
+    end
+
+end
+        
+
+        
+
+        
+
 
 
