@@ -1,6 +1,6 @@
 rule "It's too hot"
 
-	device temperatureSensor1 : temperatureMeasurement;
+	device temperatureSensor1 : temperature;
 	input temperatureHigh : number;
 	input temperatureLow : number;
 	device switch1 : switch;
