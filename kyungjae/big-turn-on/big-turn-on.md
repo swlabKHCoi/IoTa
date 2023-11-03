@@ -4,7 +4,7 @@ changedLocationMode 함수: 위치 모드 변경 이벤트가 발생할 때 호�
 
 여기서 지정된 기기가 여러개일수 있는데 이것을 한번에 저장할 방법을 모르겠습니다.
 
-<dir>
+```
  device switches : switch;
     input television : bool;     -> 해당 기기들을 한번에 저장할 수 있는 타입이 있으면 좋을 것 같습니다.
     input airconditional : bool; ->
@@ -16,4 +16,4 @@ changedLocationMode 함수: 위치 모드 변경 이벤트가 발생할 때 호�
 
   | airconditional == true;
     switches := on
-</dir>
+```
