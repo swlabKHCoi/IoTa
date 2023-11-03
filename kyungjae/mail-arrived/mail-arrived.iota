@@ -1,6 +1,6 @@
 rules "mail arrived.groovy"
 
-	device accelerationSensor : accelerationSensor;
+	device accelerationSensor : acceleration;
 	output send : string;
 
 	rule "mail when arrived"
