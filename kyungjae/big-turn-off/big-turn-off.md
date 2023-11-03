@@ -4,9 +4,17 @@ changedLocationMode 함수: 위치 모드 변경 이벤트가 발생할 때 호�
 
 여기서 지정된 기기가 여러개일수 있는데 이것을 한번에 저장할 방법을 모르겠습니다.
 
-ex) <dir>
- device switches : switch; <dir>
- input television : bool;      
- input airconditional : bool; 
+```
+device switches : switch;
+    input television : bool; -> 기기를 input값으로 하나하나 선언했는데 이를 한번에 저장하면 좋을 것 같습니다.
+    input airconditional : bool;
 
+    switches.switch [ .~> off ];
+
+    television == true;
+    switch := off
+
+  | airconditional == true;
+    switch := off
+```
 
