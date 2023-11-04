@@ -1,0 +1,15 @@
+rule "Power Allowance"
+    output switch : capability.switch;
+    input minutesLater : number;
+    timer timer : 
+
+    switch.switch [. ~> on];
+    true;
+    timer start;
+
+    timer.second [. ~> .];
+    timer.second >= minutesLater;
+    timer stop
+    switch := off;
+
+
