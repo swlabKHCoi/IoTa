@@ -1,0 +1,24 @@
+rules "turn-it-on-for-5-minutes"
+
+    device contact1 : contact;
+    device switch1 : switch;
+    timer switch_timer;
+   
+    rule "contact open and timer start"
+        
+	contact1.contact [ .~> open ];
+	contact1.contact == open;
+	switch1.switch := on,
+	start switch_timer at 0
+
+    end
+
+    rule "contact closed when after five minutes"
+
+        contact1.contact [ .~> closed ];
+	contact1.contact == closed && switch_timer == 5;
+	switch1.switch := off,
+	stop switch_timer
+    end
+
+end

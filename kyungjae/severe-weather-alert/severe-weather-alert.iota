@@ -1,12 +1,46 @@
 rule "severe-weather-alert"
 
-    device startTimer : timer;
-    device stopTimer : timer;
+    timer myTimer;
     //사용자로부터 문자를 받을 시간을 정한다.
     input hourmin : int;
-
+    input zipCode : String;
+    input latitue : number;
+    input longtitude : number;
+    input channelName : String;
+    input contactBookEnabled : Boolean;
+    input phone1 : phone;
+    input phone2 : phone;
+    input phone3 : phone;
+    input sec : number;
+    input min : number;
     output send : string;
 
+// def installed() {
+//     log.debug "Installed with settings: ${settings}"
+//     scheduleJob()
+// }
+
+// def updated() {
+//     log.debug "Updated with settings: ${settings}"
+//     unschedule()
+//     scheduleJob()
+// }
+
+// def scheduleJob() {
+//     def sec = Math.round(Math.floor(Math.random() * 60))
+//     def min = Math.round(Math.floor(Math.random() * 60))
+//     def cron = "$sec $min * * * ?"
+//     schedule(cron, "checkForSevereWeather")
+// }
+
+    myTimer [. ~> timer];
+    timer == sec + min * 60 && (latitude != "" && longtitude != "") && existAlert(zipCode);
+    stop myTimer,
+    send(getAlert(zipCode)),
+    start myTimer at 0;
+
+    // existAlert이나 getAlert 등 함수를 지원해주셔야만 실행이 됩니다
+    
     //timer를 실행해놓으면 
     startTimer.timer [ .~> start ];
     //0000시가 되었을 때 날씨 정보를 보내준다.

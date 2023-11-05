@@ -1,0 +1,18 @@
+rule "power-allowance.groovy"
+
+   device theSwitch : switch;
+   input minutesLater : number;
+   timer switch_timer;
+
+   theSwitch.switch[.~>on];
+
+   switch_timer == 0;
+   start switch_timer at 0
+   |
+   switch_timer == minutesLater;
+   theSwitch.switch := off,
+   stop switch_timer
+
+
+
+end

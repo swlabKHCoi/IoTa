@@ -1,0 +1,14 @@
+rule "presence-change-push.groovy"
+
+   device presence : presenceSensor;
+   output send: string;   
+
+   prsence.prsence[.~>prsent];
+   true;
+   send("smartphone arrived at the designated place")
+   
+   prsence.prsence[.~>not prsent];
+   true;
+   send("smartphone left at the designated place")
+
+end
