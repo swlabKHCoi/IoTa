@@ -3,13 +3,16 @@ rule "Power Allowance"
     input minutesLater : number;
     timer timer : 
 
-    switch.switch [. ~> on];
-    true;
-    timer start;
+    rule "when switch on";
+        switch.switch [. ~> on];
+        true;
+        timer start;
+    end
 
-    timer.second [. ~> .];
-    timer.second >= minutesLater;
-    timer stop
-    switch := off;
-
-
+    rule "when light turned on over specific time";
+        timer.second [. ~> .];
+        timer.second >= minutesLater;
+        timer stop,
+        switch := off;
+    end
+end

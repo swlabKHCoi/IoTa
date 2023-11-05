@@ -60,3 +60,8 @@
 | Virtual Thermostat                            | 51         | 0         | 287  |      |
 | When It’s Going to Rain                       | 1          | 0         | 46   |  O   |
 | Total                                         |            |           |      |  20  |
+
+## Custom Code
+|name|functionality|useage|
+|---|---|---|
+|timer|count time with timer device||
