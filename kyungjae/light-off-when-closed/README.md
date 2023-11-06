@@ -3,6 +3,7 @@ light-off-when-closed.groovy 코드는 문 또는 창문과 연결된 개폐 센
 
 <h3>#구현</h3>
 def contactClosedHandler(evt) 함수
+
 ```
 contact1.contact [ .~>close ];
 true;
