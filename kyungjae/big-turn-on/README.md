@@ -4,6 +4,7 @@ big-turn-on 코드는 SmartApp이 탭되거나 활성화될 때 지정된 스위
 
 <h3>#기능</h3>
 def changedLocationMode(evt) 함수
+
 ```
 device switches : switch;
     input television : bool; -> 기기를 input값으로 하나하나 선언했는데 이를 한번
@@ -20,7 +21,9 @@ device switches : switch;
 ```
 
 <h3>#문제점</h3>
+
 ```
 input "switches", "capability.switch", multiple: true
 ```
+
 multiple을 구현할 방법을 모르겠다.
