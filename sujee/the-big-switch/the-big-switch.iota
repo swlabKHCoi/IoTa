@@ -1,0 +1,7 @@
+// 이해 못함..
+
+private onSwitches() {
+    if (switches && onSwitches) { switches + onSwitches }
+    else if (switches) { switches }
+    else { onSwitches }
+}

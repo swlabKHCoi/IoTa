@@ -27,6 +27,14 @@ rules "rise-and-shine"
 
     end
 
+/* rule "set timer"에 start_time, end_time 값을 설정해줘야 하는데 어떻게 값을 넣어야될지 모르겠다.	
+def t0 = now()
+def modeStartTime = new Date(state.modeStartTime)
+def timeZone = location.timeZone ?: timeZone(timeOfDay)
+def startTime = timeTodayAfter(modeStartTime, timeOfDay, timeZone)
+def endTime = timeTodayAfter(startTime, endTime ?: "16:00", timeZone)
+*/        
+
     rule "increment the timer"
 
         flowing_time [ .~> ];
@@ -45,10 +53,31 @@ rules "rise-and-shine"
 
     end
 
+/* 
+rule "start a morning routine" 의 조건식 location.mode 가 무엇을 뜻하는지 잘 모르겠다.
+if (t0 >= startTime.time && t0 <= endTime.time && location.mode != newMode) {
+		def message = "Good morning! SmartThings changed the mode to '$newMode'"
+		send(message)
+		setLocationMode(newMode)
+		log.debug message
+
+		def dateString = new Date().format("yyyy-MM-dd")
+		log.debug "last turned on switches on ${state.actionTakenOn}, today is ${dateString}"
+		if (state.actionTakenOn != dateString) {  if문 안에 if 문이 있는 상황을 어떻게 표현할지 모르겠다.
+			log.debug "turning on switches"
+			state.actionTakenOn = dateString
+			switches?.on()
+		}
+
+	}
+*/
 end
         
 
-        
+
+
+
+
 
         
 
