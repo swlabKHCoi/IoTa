@@ -11,7 +11,9 @@ switch1:= on
 ```
 
 <h3>문제점</h3>
+
 ```
 input "switch1", "capability.switch", multiple: true
 ```
+
 multiple을 구현할 방법을 모르겠다.
