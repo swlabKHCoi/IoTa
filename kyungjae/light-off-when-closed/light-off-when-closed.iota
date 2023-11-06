@@ -1,6 +1,6 @@
 rule "light-off-when-closed"
 
-    device contactSensor : contact;
+    device contact1 : contact;
     input switch1 : switch;
 
     contact1.contact [ .~>close ];
