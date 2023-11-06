@@ -5,13 +5,13 @@ it-too-hot.groovy 코드의 기능은 온도를 감지하고, 설정된 온도�
 def temperatureHandler(evt) 
 
 ```
-currentTemperature ≥ temperature;
-		send (”temperature too low”),
-		switch1.switch := off;
+  currentTemperature ≥ temperature;
+	send (”temperature too low”),
+	switch1.switch := off;
 
-	| currentTemperature < temperature;
-		send (”temperature too high”),
-		switch1.switch := on;
+| currentTemperature < temperature;
+	send (”temperature too high”),
+	switch1.switch := on;
 ```
 <h3>#문제점</h3>
 
