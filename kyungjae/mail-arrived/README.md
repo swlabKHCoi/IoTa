@@ -3,6 +3,7 @@ mail-arrived 코드는 우편함 문에 센서가 설치되어 있고 해당 센
 
 <h3>#구현</h3>
 accelerationActiveHandler() 함수
+
 ```
 rule "mail when arrived"
 	accelerationSensor.acceleration [ .~>active ];
