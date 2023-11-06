@@ -5,16 +5,16 @@ mail-arrived 코드는 우편함 문에 센서가 설치되어 있고 해당 센
 accelerationActiveHandler() 함수
 ```
 rule "mail when arrived"
-		accelerationSensor.acceleration [ .~>active ];
-		true;
-		send ( "arrived mail" )
-	end
+	accelerationSensor.acceleration [ .~>active ];
+	true;
+	send ( "arrived mail" )
+end
 
-	rule "mail not arrived"
-		accelerationSensor.acceleration [ .~>inactive ];
-		true;
-		send ( "not arrived mail" )
-	end
+rule "mail not arrived"
+	accelerationSensor.acceleration [ .~>inactive ];
+	true;
+	send ( "not arrived mail" )
+end
 ```
 
 <h3>#문제점</h3>
