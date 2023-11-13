@@ -1,7 +1,7 @@
 <h3>#기능</h3>
 big-turn-off 코드는 SmartApp이 탭되거나 활성화될 때 지정된 스위치를 끄는 것을 목적으로 합니다.
 
-<h3>#기능</h3>
+<h3>#구현</h3>
 def changedLocationMode(evt) 함수
 
 ```
