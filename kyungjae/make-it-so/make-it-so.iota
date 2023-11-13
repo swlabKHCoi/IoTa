@@ -1,0 +1,40 @@
+rules "make-it-so"
+
+    device switches : switch;
+    device thermostats : termostatCoolingSetpoint, termostatHeatingSetpoint;
+    device locks : lock;
+
+    rule "switch"
+
+        switches.switch [ .~> ];
+	switch == on;
+	it.on() //함수 실행 
+
+      | switch == off;
+        it.off() //함수 실행
+    
+    end
+
+    rule "thermostats"
+
+        thermostats.thermostat [ .~> ];
+	thermostats == termostatCoolingSetpoint;
+	setCoolingSetpoint() //함수실행
+
+      | thermostats == termostatHeatingSetpoint;
+	setHeatingSetpoint() //함수 실행
+
+    end
+
+    rule "lock"
+
+        locks.lock [ .~> ];
+        lock == locked;
+	it.lock() //함수 실행
+
+	lock == unlocked;
+	it.unlock() //함수 실행
+
+    end
+ 
+end

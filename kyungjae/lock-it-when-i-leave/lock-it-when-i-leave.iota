@@ -1,0 +1,28 @@
+rules "lock-it-when-i-leave"
+
+    device presence1 : presence;
+    device lock1 : lock;
+    input unlock : enum;
+    input spam : enum;
+    output send : string;
+
+    rule "not presence"
+        
+	presence1.presence [ .~> not presence ];
+	true;
+	lock1 := lock;
+
+      | spam == Yes;
+        send("Doors locked after everyone departed")
+
+    end
+
+    rule "presence"
+
+        presence1.presence [ .~> presence ];
+	unlock == Yes;
+	lock := unlock;
+    end
+
+end
+
