@@ -1,0 +1,23 @@
+rules " Laundry Monitor"
+    // input "lightMode", "enum", options: ["Flash Lights", "Turn On Lights"]의 표현이 모호합니다
+    // runIn(delay, checkRunning, [overwrite: false])에서 runIn은 존재하지 않는 메소드다
+    // if (!state.isRunning) {에서의 state는 그루비 내장 객체인가?
+
+    device sensor1 : capability.accelerationSensor;
+    input phone : phone;
+    device switches : capability.swtich;
+    input cycleTime : decimal;
+    input fillTime : decimal;
+
+    rule "acceleration active"
+        sensor1.acceleration [. ~> active]
+        true
+        // 구현 불가능
+    end
+
+    rule "acceleration deactive"
+        // delay
+        // checkRunning
+            // 사이클 타임보다 길면, 메세지 보내기 + 불 키거나 손전등 키기
+    end
+end
