@@ -7,6 +7,6 @@ rule "text-me-when-it-opens.groovy"
 
     contact1.contact [.~>open] ;
         true;
-        send("is opened")
+        send("was opened")
 
 end 

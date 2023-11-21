@@ -1,13 +1,14 @@
-rule "light-follow-me"
+rules "light-follow-me"
 
-    device motionSensor : motion;
-    device switch : switch;
-
+    timer myTimer;
+    device motion1 : motionSensor;
+    device switches : switch;
     input minutes1 : number;
+    timer inactive_timer;
 
-    rule "motionSensor active"
-
-        motionSensor.motion [ .~> active ];
+    rule "motionSensor active" 
+    
+	motion1.motion [ .~> active ];
 	true;
 	switch := on
 
@@ -15,9 +16,11 @@ rule "light-follow-me"
 
     rule "motionSensor inactive"
 
-        motionSensor.motion [ .~> inacitve];
-	now() <= minutes1;
-	switch := off
+	myTimer [ .~> timer ];
+	timer == minutes1;
+	stop myTimer;
+	switch := off,
+	start myTimer at 0;
 
     end
 

@@ -24,7 +24,7 @@
 | Left It Open                                  | 6          | 1         | 96   |      |
 | Let There Be Light!                           | 0          | 2         | 41   |  O   |
 | Light Follows Me                              | 1          | 2         | 47   |  O   |
-| Light Up the Night                            | 2          | 0         | 43   |      |
+| Light Up the Night                            | 2          | 0         | 43   |  O   |
 | Lights Off, When Closed                       | 0          | 1         | 34   |  O   |
 | Lock It When I Leave                          | 8          | 0         | 119  |      |
 | Mail Arrived                                  | 1          | 0         | 41   |  O   |
@@ -33,14 +33,14 @@
 | Mini Hue Controller                           | 22         | 1         | 203  |      |
 | Notify Me When                                | 52         | 0         | 612  |      |
 | Notify Me When It Opens                       | 0          | 1         | 33   |  O   |
-| Notify Me With Hue                            | 402        | 3         | 2188 |  O   |
-| Once a Day                                    | 0          | 2         | 42   |      |
+| Notify Me With Hue                            | 402        | 3         | 2188 |      |
+| Once a Day                                    | 0          | 2         | 42   |  O   |
 | Photo Burst When                              | 6          | 6         | 178  |      |
-| Power Allowance                               | 0          | 2         | 39   |      |
-| Presence Change Push                          | 0          | 2         | 40   |      |
-| Presence Change Text                          | 0          | 2         | 55   |      |
+| Power Allowance                               | 0          | 2         | 39   |   O  |
+| Presence Change Push                          | 0          | 2         | 40   |  O   |
+| Presence Change Text                          | 0          | 2         | 55   |  O   |
 | Ridiculously Automated Garage Door            | 8          | 2         | 108  |      |
-| Rise and Shine                                | 3          | 2         | 75   |      |
+| Rise and Shine                                | 3          | 2         | 75   |   O  |
 | Scheduled Mode Change                         | 1          | 0         | 43   |  O   |
 | Severe Weather Alert                          | 0          | 1         | 36   |  O   |
 | Smart Nightlight                              | 13         | 5         | 133  |      |
@@ -48,10 +48,10 @@
 | SunriseSunset                                 | 20         | 6         | 213  |      |
 | Text Me When It Opens                         | 0          | 1         | 41   |  O   |
 | Text Me When There’s Motion and I’m Not Here  | 1          | 0         | 42   |  O   |
-| The Big Switch                                | 6          | 1         | 81   |      |
+| The Big Switch                                | 6          | 1         | 81   |  O   |
 | The Flasher                                   | 45         | 5         | 201  |      |
 | The Gun Case Moved                            | 1          | 0         | 41   |  O   |
-| Turn It On For 5 Minutes                      | 0          | 2         | 40   |      |
+| Turn It On For 5 Minutes                      | 0          | 2         | 40   |   O  |
 | Turn It On When I’m Here                      | 0          | 2         | 41   |      |
 | Turn It On When It Opens                      | 0          | 1         | 34   |  O   |
 | Turn On Only If I Arrive After Sunset         | 2          | 0         | 41   |      |

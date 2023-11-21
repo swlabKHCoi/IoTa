@@ -1,0 +1,51 @@
+rules "mini-hue-controller"
+
+    device bulbs_color : string;
+    device bulbs_hue : number;
+    device bulbs_saturation : number;
+    device controller : button;
+	
+    input color : string;
+
+    rule "button held 2"
+
+        controller.button [ .~> ];
+	button == 2 && controller.button == held;
+	bulbs_hue := 100
+
+      | button == 2 && controller.button != held;
+      	bulbs_hue := bulbs_hue + 10
+
+    end
+
+    rule "button held 3"
+
+        controller.button [ .~> ];
+	button == 3 && controller.button == held;
+        bulbs.setColor() //함수 선언
+
+      | button == 3 && controller.button != held;
+        bulbs_color := color
+
+    end
+
+    rule "button held 4"
+
+        controller.button [ .~> ];
+	button == 4 && controller.button == held;
+	bulbs_hue := 10
+
+      | button == 4 && controller.button != held;
+      	bulbs_hue := bulbs_hue - 10
+
+    end
+
+    rule "other button"
+
+        controller.button [ .~> held];
+	controller.button != 2 && controller.button != 3 && controller.button != 4;
+	toggleState() //함수 호출
+    
+    end
+
+end

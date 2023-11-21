@@ -3,13 +3,11 @@ rule " presence-change-text.groovy"
    device presence : presenceSensor;
    output send : string;
    
-   prsence.prsence[.~>];
-   
-   prsence.prsence[.~>prsent];
+   presence.presence[.~>present];
    true;
    send("I arrived at the designated place")
    
-   prsence.prsence[.~>not prsent];
+   prsence.prsence[.~>not present];
    true;
    send("I left at the designated place")
 end

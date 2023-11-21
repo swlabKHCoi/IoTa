@@ -4,11 +4,15 @@ rule "scheduled-mode-change.groovy"
     input newMode : mode;
     input time : time;
     output send : string;
+    device clock : clock;
 
+    clock.time[.~>time];
     location.mode != newMode;
+        send ( "tried to change to undefined mode :" + newNode )   
+    
+        |
+        send ( "change the mode to " + newMode )
 
-        send ( "Sensed mode : " + newMode )
-        
 end
 
 
