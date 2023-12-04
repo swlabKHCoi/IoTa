@@ -1,0 +1,58 @@
+rules "Monitors arrival and departure of car(s) and 1) opens door when car arrives, 2) closes door after car has departed (for N minutes), 3) opens door when car door motion is detected, 4) closes door when door was opened due to arrival and interior door is closed."
+
+    device doorSensor : capability.contactSensor;
+    device doorSwitch : capability.momentary
+    input openTreshold : number;
+    device cars : [capability.presenceSensor];
+    device carDoorSensors : [capability.accelerationSensor];
+    device interiorDoorSensor : capability.contactSensor;
+    input falseAlarmTrheshold : number;
+    timer scheduler_timer;
+    output sendPush : String;
+    input msg : String;
+    
+    rule "when door opened"
+        doorSensor.contact [. ~> open];
+        true;
+        start scheduler_timer at 0;
+    end
+
+    rule "when door opened"
+        doorSensor.contact [. ~> close];
+        true;
+        stop scheduler_timer;
+    end
+
+    rule "when timer clocked"
+        scheduler_timer [. ~> "0 * * * * ?" ];
+        if(doorSensor.contactState.value == "open");
+        sendPush(msg);
+    end
+
+    rule "move car when it present"
+        carDoorSensors.presence [. ~> present];
+        if(car.stateSince("presence", t0).find {it.value == "not present"} && doorSensor.currentContact == "closed")
+        sendPush("Opening garage door due to arrival of ${car.displayName}"),
+        car.stateSince("presence", t0) = now,
+        doorSwitch.push( );
+    end
+
+    rule "move car when it not present"
+        carDoorSensors.presence [. ~> not present];
+        if(car.stateSince("presence", t0).find {it.value == "not present"} && doorSensor.currentContact == "open")
+        sendPush("Closing ${doorSwitch.displayName} after departure"),
+        doorSwitch.push( );
+    end
+
+    rule "cardoor accelerated and door sensor is closed"
+        carDoorSensors.acceleration [. ~> .];
+        if(doorSensor.currentContact == "closed");
+        doorSwitch.push( );
+    end
+
+    rule "interior door closed"
+        interiorDoorSensor.contact[. ~> closed];
+        if(state.appOpenedDoor && now() - state.appOpenedDoor < 15*60*1000)
+        doorSwitch.push( );
+    end
+end
