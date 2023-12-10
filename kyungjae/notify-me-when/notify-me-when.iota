@@ -1,0 +1,201 @@
+rules "notify-me-when"
+
+    device button : [ capability.button ];
+    device motion : [ capability.motionSensor ];
+    device contact : [ capability.contactSensor ];
+    device contactClosed : [ capability.contactSensor ];
+    devcie acceleration : [ capability.accelerationSensor ];
+    device mySwitch : [ capability.switch ];
+    device mySwitchOff : [ capability.switch ];
+    device arrivalPresence : [ capability.presenceSensor ];
+    device departurePresence : [ capability.presenceSensor ];
+    device smoke : [ capability.smokeDetector ];
+    device water : [ capability.waterSensor ];
+
+    input messageText : text;
+    input recipients : contact;
+    input phone : phone;
+    input pushAndPhone : enum;
+    input frequency : decimal;
+
+    timer pushInterval;
+
+    rule "button"
+
+        button.button [ .~> pushed ];
+	frequency == 0;
+	send("text"),
+	start timer pushInterval at 0
+
+      | frequency > 0 && pushInterval < frequency * 60000;
+        send("text")
+
+      | frequency > 0 && pushInterval >= frequency * 60000;
+        send("text"),
+	stop pushInterval
+    
+    end
+
+
+    rule "motion"
+
+        motion.motion [ .~> active ];
+	frequency == 0;
+        send("text"),
+        start timer pushInterval at 0
+
+      | frequency > 0 && pushInterval < frequency * 60000;
+        send("text")
+
+      | frequency > 0 && pushInterval >= frequency * 60000;
+        send("text"),
+        stop pushInterval
+    
+    end
+
+    rule "contactOpen"
+
+        contact.contact [ .~> open ];
+        frequency == 0;
+        send("text"),
+        start timer pushInterval at 0
+
+      | frequency > 0 && pushInterval < frequency * 60000;
+        send("text")
+
+      | frequency > 0 && pushInterval >= frequency * 60000;
+        send("text"),
+        stop pushInterval
+
+    end
+    
+    rule "contactClose"
+
+        contact.contace [ .~> closed ];
+        frequency == 0;
+        send("text"),
+        start timer pushInterval at 0
+
+      | frequency > 0 && pushInterval < frequency * 60000;
+        send("text")
+
+      | frequency > 0 && pushInterval >= frequency * 60000;
+        send("text"),
+        stop pushInterval
+
+    end
+
+    rule "acceleration"
+
+        acceleration.acceleration [ .~> active ];
+        frequency == 0;
+        send("text"),
+        start timer pushInterval at 0
+
+      | frequency > 0 && pushInterval < frequency * 60000;
+        send("text")
+
+      | frequency > 0 && pushInterval >= frequency * 60000;
+        send("text"),
+        stop pushInterval
+
+    end
+
+    rule "mySwitchOn"
+
+        mySwitch.switch [ .~> on ];
+        frequency == 0;
+        send("text"),
+        start timer pushInterval at 0
+
+      | frequency > 0 && pushInterval < frequency * 60000;
+        send("text")
+
+      | frequency > 0 && pushInterval >= frequency * 60000;
+        send("text"),
+        stop pushInterval
+
+    end
+
+    rule "mySwitchOff"
+
+        mySwitch.switch [ .~> off ];
+        frequency == 0;
+        send("text"),
+        start timer pushInterval at 0
+
+      | frequency > 0 && pushInterval < frequency * 60000;
+        send("text")
+
+      | frequency > 0 && pushInterval >= frequency * 60000;
+        send("text"),
+        stop pushInterval
+
+    end
+
+    rule "arrivalPresence"
+
+        arrivalPresence.presence [ .~> presence ];
+        frequency == 0;
+        send("text"),
+        start timer pushInterval at 0
+
+      | frequency > 0 && pushInterval < frequency * 60000;
+        send("text")
+
+      | frequency > 0 && pushInterval >= frequency * 60000;
+        send("text"),
+        stop pushInterval
+
+    end
+
+    rule "departurePresence"
+
+        departurePresence [ .~> not presence ];
+        frequency == 0;
+        send("text"),
+        start timer pushInterval at 0
+
+      | frequency > 0 && pushInterval < frequency * 60000;
+        send("text")
+
+      | frequency > 0 && pushInterval >= frequency * 60000;
+        send("text"),
+        stop pushInterval
+
+    end
+
+    rule "smoke"
+
+        smoke.smoke [ .~> detected ];
+        frequency == 0;
+        send("text"),
+        start timer pushInterval at 0
+
+      | frequency > 0 && pushInterval < frequency * 60000;
+        send("text")
+
+      | frequency > 0 && pushInterval >= frequency * 60000;
+        send("text"),
+        stop pushInterval
+
+    end
+
+     rule "water"
+
+        water.water [ .~> wet ];
+        frequency == 0;
+        send("text"),
+        start timer pushInterval at 0
+
+      | frequency > 0 && pushInterval < frequency * 60000;
+        send("text")
+
+      | frequency > 0 && pushInterval >= frequency * 60000;
+        send("text"),
+        stop pushInterval
+
+    end
+
+    
+end
