@@ -1,0 +1,87 @@
+rules "sunrise-sunset"
+
+    device sunriseOn : [ capability.switch ];
+    device sunriseOff : [ capability.switch ];
+    device sunsetOn : [ capability.switch ];
+    device sunsetOff : [ capability.switch ];
+    
+    input sunriseMode : mode; //일출 모드로 바꿀까요?
+    input sunsetMode : mode;
+    input sunriseOffsetValue : text; //일출 시간
+    input sunriseOffsetDir : enum; //일출 전/후
+    input sunsetOffsetValue : text;
+    input sunsetOffsetDir : enum;
+
+    input zipCode : text;
+    input sendPushMessage : enum;
+    input phoneNumber : phone;
+
+    output send : string;
+
+    rule "sunriseOnHandler"
+    
+        sunriseOn.switch [ .~> on ];
+ 	true;
+	sunriseOn.on() //if (sunriseOn) { sunriseOn.on() }
+  
+      | (sunriseMode != location.mode) && location.modes?.find{it.name == newMode};
+        sunriseOn.on(),
+	send("${label} has changed the mode to '${newMode}'")
+      
+      | (sunriseMode != location.mode);
+        sunriseOn.on(),
+        send("${label} tried to change to undefined mode '${newMode}'")
+    
+    end
+
+    rule "sunriseOffHandler"
+    
+        sunsetOff.switch [ .~> off ];
+        true;
+        sunriseOff.off() //if (sunriseOff) { sunriseOff.off() }
+        
+      | (sunriseMode != location.mode) && location.modes?.find{it.name == newMode};
+        sunriseOff.off(),
+        send("${label} has changed the mode to '${newMode}'")
+
+      | (sunriseMode != location.mode);
+        sunriseOff.off(),
+        send("${label} tried to change to undefined mode '${newMode}'")
+
+
+    end
+
+    rule "sunsetOnHandler"
+
+         sunsetOn.switch [ .~> on ];
+         true;
+         sunsetOn.on() //if (sunsetOn) { sunsetOn.on() }
+       
+       | (sunsetMode != location.mode) && location.modes?.find{it.name == newMode};
+         sunsetOn.on(),
+         send("${label} has changed the mode to '${newMode}'")
+
+       | (sunsetMode != location.mode);
+         sunsetOn.on(),
+         send("${label} tried to change to undefined mode '${newMode}'")
+ 
+	
+    end
+
+    rule "sunsetOffHandler"
+
+        sunsetOff.switch [ .~> off ];
+        true;
+        sunsetOff.off() //if (sunsetOff) { sunsetOff.off() }
+
+      | (sunsetMode != location.mode) && location.modes?.find{it.name == newMode};
+        sunriseOff.off(),
+        send("${label} has changed the mode to '${newMode}'")
+
+      | (sunriseMode != location.mode);
+        sunsetOff.off(),
+        send("${label} tried to change to undefined mode '${newMode}'")
+
+    end
+
+end
