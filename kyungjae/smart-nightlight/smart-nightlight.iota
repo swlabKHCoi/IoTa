@@ -1,0 +1,50 @@
+rules "smart-nightlight"
+
+    device lights : [ capability.switch ];
+    device motionSensor : capability.motionSensor;
+    device lightSensor : capability.illuminanceMeasurement;
+
+    input delayMinutes : number;  
+    input sunriseOffsetValue : text;
+    input sunriseOffsetDir : enum;
+    input sunsetOffsetValue : text;
+    input sumsetOffsetDir : enum;
+    input state;
+    input zipCode : text;
+    timer not_detect_timer;
+
+    rule "start timer"
+        
+	motion.motion [ .~> ];
+	true;
+	start not_detect_timer at 0
+    
+    end
+
+    rule "motion detected"
+
+        motion.motion [ .~> ];
+	motionSensor.motion == active;
+	lights.on(),
+	state.lastStatus = "on",
+	state.motionStopTime = null
+
+      | motionSensor.motion == off && not_detect_timer > 60;
+        light.off()
+        
+    end
+
+    rule "illuminanceHandler"
+
+        lightSensor.illuminance [ .~> ];
+        state.lastStatus == "on" && lightSensor > 50;
+	lights.off(),
+	state.lastStatus = "off"
+
+      | state.lastStatus == "on" && not_detect_timer > 0 && (now() - state.motionStopTime) >= ((delayMinutes ?: 0) * 60000L) - 2000;
+        lights.off(),
+	status.lastStatus = "on"
+        
+    end
+
+end
