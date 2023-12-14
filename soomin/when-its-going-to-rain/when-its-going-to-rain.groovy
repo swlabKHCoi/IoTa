@@ -53,7 +53,7 @@ def updated() {
 	unschedule()
 	schedule(time, "scheduleCheck")
 }
-
+// 구현 불가
 def scheduleCheck() {
 	def response = getWeatherFeature("forecast", zipcode)
 	if (isStormy(response)) {

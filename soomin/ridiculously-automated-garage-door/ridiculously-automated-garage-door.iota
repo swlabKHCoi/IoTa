@@ -1,0 +1,17 @@
+rule "ridiculously-automated-garage-door.groovy"
+
+    device doorSensor : contactSensor;
+    device doorSwitch : momentary;
+    input openThreshold : number;
+    device phone : phone;
+    device cars : presenceSensor;
+    device carDoorSensors : accelerationSensor;
+    device interiorDoorSensor : contactSensor;
+    input falseAlarmthreshold : number;
+
+
+
+
+
+
+end

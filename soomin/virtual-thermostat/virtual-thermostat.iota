@@ -1,0 +1,13 @@
+rule "virtual-thermostat.groovy"
+    device sensor : temperatureMeasurementSensor;
+    device outlets : switch;
+    input setpoint : decimal;
+    device motion : motionSensor;
+    input minutes : number;
+    input emergencySetpoint : decimal;
+    input mode : enum 
+
+    motion[.~>active]
+    
+
+end 

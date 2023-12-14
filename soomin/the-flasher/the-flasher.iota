@@ -1,0 +1,89 @@
+rule "the-flasher.groovy"
+
+    device motion : motionSensor;
+    device contact : contactSensor;
+    device acceleration : accelerationSensor;  
+    device mySwitch : switch;
+    device presenceSensor : presenceSensor;
+    device switches : switch;  // multiple  
+
+    input numFlashes : number;
+    input onFor : number;
+    input offFor : number;
+
+    rule "contact event"
+        contact.contact[.~>open]
+        true
+        flashLights()
+    end
+
+    rule "acceleration event"
+        acceleration.acceleration[.~>active]
+        true
+        flashLights()
+    end
+
+    rule "motion event"
+        motion.motion[.~>active]
+        true
+        flashLights()
+    end 
+
+    rule "mySwitch event"
+        mySwitch.switch[.~>on]
+        true
+        flashLights()
+    end
+
+    rule "myPresence event"
+        myPresence.presence[.~>present]
+        true
+        flashLights()
+    end
+
+end
+
+// private flashLights() {
+//	def doFlash = true
+//	def onFor = onFor ?: 1000
+//	def offFor = offFor ?: 1000
+//	def numFlashes = numFlashes ?: 3
+//
+//	log.debug "LAST ACTIVATED IS: ${state.lastActivated}"
+//	if (state.lastActivated) {
+//		def elapsed = now() - state.lastActivated
+//		def sequenceTime = (numFlashes + 1) * (onFor + offFor)
+//		doFlash = elapsed > sequenceTime
+//		log.debug "DO FLASH: $doFlash, ELAPSED: $elapsed, LAST ACTIVATED: ${state.lastActivated}"
+//	}
+//
+//	if (doFlash) {
+//		log.debug "FLASHING $numFlashes times"
+//		state.lastActivated = now()
+//		log.debug "LAST ACTIVATED SET TO: ${state.lastActivated}"
+//		def initialActionOn = switches.collect{it.currentSwitch != "on"}
+//		def delay = 0L
+//		numFlashes.times {
+//			log.trace "Switch on after  $delay msec"
+//			switches.eachWithIndex {s, i ->
+//				if (initialActionOn[i]) {
+//					s.on(delay: delay)
+//				}
+//				else {
+//					s.off(delay:delay)
+//				}
+//			}
+//			delay += onFor
+//			log.trace "Switch off after $delay msec"
+//			switches.eachWithIndex {s, i ->
+//				if (initialActionOn[i]) {
+//					s.off(delay: delay)
+//				}
+//				else {
+//					s.on(delay:delay)
+//				}
+//			}
+//			delay += offFor
+//		}
+//	}
+//}

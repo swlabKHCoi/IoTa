@@ -10,3 +10,19 @@ rlue "when-its-going-to-rain"
     send("A storm is a coming and the following things are open:"+ open.join(', '))
     
 end 
+
+// 구현 불가
+//def scheduleCheck() {
+//	def response = getWeatherFeature("forecast", zipcode)
+//	if (isStormy(response)) {
+//		def open = sensors.findAll { it?.latestValue("contact") == 'open' }
+//		if (open) {
+//          if (location.contactBookEnabled) {
+//                sendNotificationToContacts("A storm is a coming and the following things are open: ${open.join(', ')}", recipients)
+//            }
+//            else {
+//                sendSms(phone, "A storm is a coming and the following things are open: ${open.join(', ')}")
+//            }
+//		}
+//	}
+//}

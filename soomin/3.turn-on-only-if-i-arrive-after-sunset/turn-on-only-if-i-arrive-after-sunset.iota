@@ -1,0 +1,22 @@
+rule "turn-on-only-if-i-arrive-after-sunset.groovy"
+
+    device presence1: presenceSensor;
+    device switch1 : switch;
+    input sunTime : time;
+
+    sunTime = getSunriseAndSunset(); // 해당 함수 없음
+
+    rule "present"
+        presence1.presence[.~>present]
+            now() > sunTime.sunset
+                switch1 := on;
+    end
+    
+    rule "not present"
+        presence1.presence[.~>not present]
+            ture
+                switch1 := off;
+    end
+
+
+end 

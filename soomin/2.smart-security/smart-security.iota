@@ -1,0 +1,162 @@
+rule "medicine-reminder.groovy"
+
+    device intrusionMotions : motionSensor;
+    device intrusionContacts : contactSensor;
+    device residentMotions : motionSensor;
+    device alarms : alarm;
+    device lights : switch;
+    device phone : phone;
+    input silent : enum;
+    input seconds : number;
+    input newMode : mode;
+    input textMessage : text;
+    input residentsQuietThreshold : number;
+    
+    rule "installed - subscribeToEvents() " 
+
+        intrusionMotions.motion[. ~> active]
+        !state.residentsAreup && residentsQuietThreshold != null && residentsQuietThreshold != "";
+            && t0에 
+            residentMotions.motion[. ~> active ]
+            state.lastIntruederMotion != null 
+            && 
+            if (now() - lastIntruderMotion > threshold) {
+			    log.debug "re-arming intrusion detection"
+			    state.residentsAreUp = false
+			    unschedule()
+		    }
+                // 침입자 감지
+
+    end
+ 
+
+end
+
+[E]instrusionMotions의 움직임 감지
+[C]거주민들이 일어나있지 않고, 거주민 조용한 문턱이 null이 아니거나 비어있지 않다면 
+   그 값을 현재에서 뺀다
+threshold = ((residentsQuietThreshold != null && residentsQuietThreshold != "") ? residentsQuietThreshold : 3) * 60 * 1000
+def t0 = new Date(now() - threshold)
+
+해당 함수 
+private residentsHaveBeenQuiet()
+{
+	def threshold = ((residentsQuietThreshold != null && residentsQuietThreshold != "") ? residentsQuietThreshold : 3) * 60 * 1000
+	def result = true
+	def t0 = new Date(now() - threshold)
+	for (sensor in residentMotions) {
+		def recentStates = sensor.statesSince("motion", t0)
+		if (recentStates.find{it.value == "active"}) {
+			result = false
+			break
+		}
+	}
+	log.debug "residentsHaveBeenQuiet: $result"
+	result
+}
+
+거주민움직임들 센서 중 t0시간에 움직임이 active가 된다면 result == false
+intruderMotion에 돌아와 false이므로 disarmIntrusionDetection 함수 호출
+거주민들 일어났다. -> state.residentsAreUp = true / scheduleReArmCheck() 함수 호출
+
+해당 함수 -> cron이 뭔지 모르겠다.
+private scheduleReArmCheck()
+{
+	def cron = "0 * * * * ?"
+	schedule(cron, "checkForReArm")  -> checkForReArm 호출
+	log.debug "Starting re-arm check, cron: $cron"
+}
+
+checkForReArm에서 다시 threshold 확인 후 state.lastIntruderMotion 마지막 침입자 움직임 확인
+state.intruderMotion != null 이 아래 부분 -> now() - lastIntruderMotion > threshold 조건이 이해 x
+if (lastIntruderMotion != null)
+	{
+		log.debug "checkForReArm, time since last intruder motion: ${now() - lastIntruderMotion}"
+		if (now() - lastIntruderMotion > threshold) {
+			log.debug "re-arming intrusion detection"
+			state.residentsAreUp = false
+			unschedule() -> 해당 함수 없음
+		}
+	}
+	else {
+		log.warn "checkForReArm: lastIntruderMotion was null, unable to check for re-arming intrusion detection"
+	}
+
+
+private startAlarmSequence()
+{
+	if (state.alarmActive) {
+		log.debug "alarm already active"
+	}
+	else {
+		state.alarmActive = true
+		log.debug "starting alarm sequence"
+
+		sendPush("Potential intruder detected!")
+
+		if (newMode) {
+			setLocationMode(newMode)
+		}
+
+		if (silentAlarm()) {
+			log.debug "Silent alarm only"
+			alarms?.strobe()
+            if (location.contactBookEnabled) {
+                sendNotificationToContacts(textMessage ?: "Potential intruder detected", recipients)
+            }
+            else {
+                if (phone) {
+                    sendSms(phone, textMessage ?: "Potential intruder detected")
+                }
+            }
+		}
+		else {
+			def delayTime = seconds
+			if (delayTime) {
+				alarms?.strobe()
+				runIn(delayTime, "soundSiren")
+				log.debug "Sounding siren in $delayTime seconds"
+			}
+			else {
+				soundSiren()
+			}
+		}
+
+		if (lights) {
+			flashLights(Math.min((seconds/2) as Integer, 10))
+		}
+	}
+}
+
+alarms?.strobe() , runIn(delayTime, "soundSiren")
+
+
+private silentAlarm()
+{
+	silent?.toLowerCase() in ["yes","true","y"]
+}
+
+//silentAlarm으로 조건문을 확인하는 이유가,,? 
+if (silentAlarm()) {
+    log.debug "Silent alarm only"
+    alarms?.strobe()
+    if (location.contactBookEnabled) {
+        sendNotificationToContacts(textMessage ?: "Potential intruder detected", recipients)
+    }
+    else {
+        if (phone) {
+            sendSms(phone, textMessage ?: "Potential intruder detected")
+        }
+    }
+}
+else {
+    def delayTime = seconds
+    if (delayTime) {
+        alarms?.strobe()
+        runIn(delayTime, "soundSiren")
+        log.debug "Sounding siren in $delayTime seconds"
+    }
+    else {
+        soundSiren()
+    }
+}
