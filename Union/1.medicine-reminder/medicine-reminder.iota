@@ -1,0 +1,56 @@
+rule "medicine-reminder.groovy"
+
+    device cabinet1 : contactSensor;
+    input time1 : time;
+    input time2 : time;
+    input time3 : time;
+    input time4 : time;
+    input timeWindow : decimal;
+    input contactBookEnabled : Boolean;
+    input msg : text;
+    output recipients: contact;
+    output phone1:phone;
+    output sendSms: (String, String);
+    output sendPush : enum; // 아래에서 sendPush를 변수로도 사용하고 함수로도 사용함,,
+    output sendNotificationToContacts : (String, array of String);
+    
+    // t0 t1 사이에 cabinet1.contact[. ~> open] open이 된다면
+    nothing
+    |
+    // t0 t1 사이에 cabinet1.contact[.] 변화가 없다면
+        contactBookEnabled; //조건
+            sendNotificationToContacts(msg, recipients);
+        |
+        !contactBookEnabled;
+            phone1 != 0; // phone이 있다면(0이 아니면 true)
+                sendSms(phone1, msg)
+            |
+            sendPush == "Yes";
+                sendPush(msg)
+
+
+
+
+end
+
+// t0, t1을 어떻게 설정해야할지 모르겠다.
+// def scheduleCheck()
+// {
+//	log.debug "scheduleCheck"
+//	def t0 = new Date(now() - (2 * timeWindowMsec))
+//	def t1 = new Date()
+//	def cabinetOpened = cabinet1.eventsBetween(t0, t1).find{it.name == "contact" && it.value == "open"}
+//	log.trace "Looking for events between $t0 and $t1: $cabinetOpened"
+//
+//	if (cabinetOpened) {
+//		log.trace "Medicine cabinet was opened since $midnight, no notification required"
+//	} else {
+//		log.trace "Medicine cabinet was not opened since $midnight, sending notification"
+//		sendMessage()
+//	}
+// }
+
+// ?:가 뭔지 모르겠다. 
+// def getTimeWindowMsec() {
+//	(timeWindow ?: 15) * 60000 as Long
+// }
