@@ -1,0 +1,10 @@
+rules "Light Up the Night"
+    device lightSensor : capability.illuminanceMeasurement;
+    output lights : capability.switch;
+
+    lightSensor.illuminance [. ~> .] ;
+    lightSensor.illuminance < 30 ;
+    lights.switch := on;
+
+    | lightSensor.illuminance > 30;
+    lights.switch := off;

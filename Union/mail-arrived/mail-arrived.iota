@@ -1,0 +1,18 @@
+rules "mail arrived.groovy"
+
+	device accelerationSensor : acceleration;
+	output send : string;
+
+	rule "mail when arrived"
+		accelerationSensor.acceleration [ .~>active ];
+		true;
+		send ( "arrived mail" )
+	end
+
+	rule "mail not arrived"
+		accelerationSensor.acceleration [ .~>inactive ];
+		true;
+		send ( "not arrived mail" )
+	end
+
+end

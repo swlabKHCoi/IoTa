@@ -1,0 +1,41 @@
+rules "Garage Door Opener"
+    device door_switch:capability.switch;
+    device app : capability.touch;
+    timer door_timer;
+
+    rule "When app touched"
+        app.touch [. ~> ];
+        true;
+        start door_timer at 0;
+    end
+
+    rule "When timer reach to 3 second"
+        door_timer [. ~> 3];
+        true;
+        door_switch.switch := off,
+        stop door_timer;
+    end
+
+    
+end
+
+// def installed() {
+// 	subscribe(app, appTouchHandler)
+// 	subscribeToCommand(switch1, "on", onCommand)
+// }
+
+// def updated() {
+// 	unsubscribe()
+// 	subscribe(app, appTouchHandler)
+// 	subscribeToCommand(switch1, "on", onCommand)
+// }
+
+// def appTouch(evt) {
+// 	log.debug "appTouch: $evt.value, $evt"
+// 	switch1?.on()
+// }
+
+// def onCommand(evt) {
+// 	log.debug "onCommand: $evt.value, $evt"
+// 	switch1?.off(delay: 3000)
+// }

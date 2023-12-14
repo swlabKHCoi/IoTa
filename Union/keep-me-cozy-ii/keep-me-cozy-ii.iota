@@ -1,0 +1,32 @@
+rules "Keep Me Cozy II"
+    device thermostat : capability.thermostatMode;
+    device sensor : capability.temperatureMeasurement;
+    input heatingSetpoint : decimal;
+    input coolingSetpoint : decimal;
+
+    rule "If too hot"
+        // tm in ["cool","auto"]에서 "auto"는 생략함
+        thermostat.currentThermostatMode [. ~> cool]
+        sensor.currentTemperature - coolingSetpoint >= 1.0
+        coolingSetpoint.setCoolingSetpoint(sensor.currentTemperature - 2)
+    end
+
+    rule "If too cold in heat mode"
+        // tm in ["heat", "emergency heat", "auto"]에서 "auto"는 생략함
+        thermostat.currentThermostatMode [. ~> heat]
+            heatingSetpoint - sensor.currentTemperature >= 1.0
+            heatingSetpoint.setHeatingSetpoint(sensor.currentTemperature + 2)
+
+            | sensor.currentTemperature - heatingSetpoint >= 1.0 && thermostat.currentHeatingSetpoint - ct >= 1.0
+            setHeatingSetpoint.setHeatingSetpoint(senor.currentTemperature - 2)
+    end
+
+    rule "If too cold"
+        // tm in ["heat", "emergency heat", "auto"]에서 "auto"는 생략함
+        thermostat.currentThermostatMode [. ~> emergency heat]
+            heatingSetpoint - sensor.currentTemperature >= 1.0
+            heatingSetpoint.setHeatingSetpoint(sensor.currentTemperature + 2)
+
+            | sensor.currentTemperature - heatingSetpoint >= 1.0 && thermostat.currentHeatingSetpoint - ct >= 1.0
+            setHeatingSetpoint.setHeatingSetpoint(senor.currentTemperature - 2)
+    end

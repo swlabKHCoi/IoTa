@@ -1,0 +1,12 @@
+rlue "when-its-going-to-rain"
+
+    input zipcode : text;
+    input time : time;
+    device sensors : contactSensor;
+    output send : string;
+
+    response[ .~> ];
+    result != false;
+    send("A storm is a coming and the following things are open:"+ open.join(', '))
+    
+end 

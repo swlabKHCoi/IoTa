@@ -1,0 +1,16 @@
+rule "Let There Be Light"
+    device contact1 : capability.contactSensor;
+    output switch1 : capability.switch;
+
+    rule "Door Opened"
+        contact1.contact [.~>open];
+        true;
+        switch1.switch := on;
+    end
+
+    rule "Door Closed"
+        contact1.contact [.~>closed];
+        true;
+        switch1.switch := off;
+    end
+end

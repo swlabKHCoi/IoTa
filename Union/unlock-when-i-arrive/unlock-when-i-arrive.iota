@@ -1,0 +1,13 @@
+rule "Unlock It When I Arrive"
+
+    device presence1 : capability.presenceSensor;
+    output lock1 : capability.lock;
+    output send : string;
+
+    lock1.lock [.~>unlocked];
+    true;
+    send("Unlocked door due to arrival") | 
+    lock1.unlock();
+end
+
+// No use of presence1 in this code

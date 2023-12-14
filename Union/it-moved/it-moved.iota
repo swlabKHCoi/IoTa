@@ -1,0 +1,13 @@
+rule "it-moved.groovy"
+
+    device accelerationSensor : accelerationSensor ; 
+    output send : string ;
+
+    accelerationSensor.acceleration[.~>active];
+    true; 
+    // or alreadySentSms != true
+    send ( "accelerationSensor moved" )
+
+
+end 
+

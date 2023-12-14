@@ -1,0 +1,10 @@
+rule "undead-early-warning.groovy"
+
+    device contacts : contactSensor;
+    device switches : switch;
+
+    contacts.contact [. ~> open];
+    true;
+    switches := on
+
+end

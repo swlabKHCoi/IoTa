@@ -1,0 +1,13 @@
+rule "energy-saver.groovy"
+
+    device meter : powerMeter;
+    input threshold : number;
+    output switches : switch;
+
+    meter.power [.~>currentPower];
+
+        currentPower > threshold;
+        send(currentPower + " reported energy consumption above " + threshold + ". Turning of switches."),
+        switches.switch := off
+
+end

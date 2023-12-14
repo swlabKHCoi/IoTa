@@ -1,0 +1,18 @@
+rules "turn-it-on-when-im-here"
+
+    device presence1 : presence;
+    device switch1 : switch;
+
+    rule "presenceSensor is presence"
+        presence1.presence [ .~> presence ];
+        true;
+        switch1 := on
+    end
+
+    rule "presenceSensor is not presence"
+        presence1.presence [ .~> not presence ];
+	true;
+	switch1 := off
+    end
+ 
+end

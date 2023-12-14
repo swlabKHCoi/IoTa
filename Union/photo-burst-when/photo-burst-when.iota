@@ -1,0 +1,21 @@
+rules "Photo Burst When..."
+    device motion : [ capability.motionSensor ];
+    device contact : [ capability.contactSensor ];
+    device acceleration : [ capability.acceleration ];
+    device mySwitch : [ capability.switch];
+    device arrivalPresence : [capability.presenceSensor];
+    device departurePresence : [capability.presenceSensor];
+
+    output camera : capability.imageCapture;
+    output burstCount : number;
+    input messageText : text;
+    output sendPush : String;
+
+    rule "subscribe To contact"
+        contact.contact [. ~> open];
+        true;
+        camera.take(delay * 500 * burstCount),
+        burstCount--,
+        sendPush(messageText);
+    end
+end

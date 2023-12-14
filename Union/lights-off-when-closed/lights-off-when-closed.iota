@@ -1,0 +1,10 @@
+rule "lights-off-when-closed.groovy"
+
+	//"Turn your lights off when an open/close sensor closed."
+	device contact1 : contactSensor;
+	device switch1 : switch;
+
+	contact1.contact [ .~> ];
+	contact1.contact == closed;
+	switch1.switch := off
+end

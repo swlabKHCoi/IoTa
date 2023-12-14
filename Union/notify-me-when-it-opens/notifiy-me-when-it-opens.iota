@@ -1,0 +1,9 @@
+rule "notifiy-me-when-it-opens.groovy"
+//"Get a push message sent to your phone when an open/close sensor is opened."
+	device contact1 : contactSeonsor;
+	output send : string;
+
+	contact1.contact [ .~> ];
+	contact1.contact == open;
+	send ("Your " + contact1 + " was opened")
+end

@@ -1,0 +1,18 @@
+rule "Power Allowance"
+    output switch : capability.switch;
+    input minutesLater : number;
+    timer timer : 
+
+    rule "when switch on";
+        switch.switch [. ~> on];
+        true;
+        timer start;
+    end
+
+    rule "when light turned on over specific time";
+        timer.second [. ~> .];
+        timer.second >= minutesLater;
+        timer stop,
+        switch := off;
+    end
+end

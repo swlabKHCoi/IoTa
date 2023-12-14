@@ -1,0 +1,14 @@
+rule "brighten-my-path"
+
+    //움직임이 감지되는 위치 설정
+    //어떤 조명을 킬지 설정
+    device motion1 : motion;
+    device switch1 : switch;
+    input light : bool;
+
+    motion1.motion [ .~> active ];
+    light == true;
+    switch1:= on
+
+end
+

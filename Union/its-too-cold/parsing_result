@@ -1,0 +1,79 @@
+parse time:   0.06s
+{
+    "LeafRule": [
+        "\"its-too-cold\"",
+        [
+            {
+                "DeviceDecl": [
+                    "temperatureSensor1",
+                    "temperatureMeasurement"
+                ]
+            },
+            {
+                "InputDecl": [
+                    "tooCold",
+                    "number"
+                ]
+            },
+            {
+                "DeviceDecl": [
+                    "switch1",
+                    "switch"
+                ]
+            },
+            {
+                "OutputDecl": [
+                    "send",
+                    [
+                        "string"
+                    ]
+                ]
+            }
+        ],
+        {
+            "EMCA": [
+                {
+                    "EventTo": [
+                        {
+                            "Field": [
+                                "temperatureSensor1",
+                                "temperature"
+                            ]
+                        },
+                        "currentTemperature"
+                    ]
+                },
+                [
+                    [
+                        {
+                            "GreaterThanOrEqualTo": [
+                                {
+                                    "ExpressionPredicate": {
+                                        "IdentifierExpression": "currentTemperature"
+                                    }
+                                },
+                                {
+                                    "IdentifierExpression": "tooCold"
+                                }
+                            ]
+                        },
+                        [
+                            {
+                                "CommandAction": [
+                                    {
+                                        "Field": [
+                                            "switch1",
+                                            "switch"
+                                        ]
+                                    },
+                                    {
+                                        "IdentifierExpression": "on"
+                                ]
+                            }
+                        ]
+                    ]
+                ]
+            ]
+    ]
+}
+Done.
